@@ -26,9 +26,9 @@ class AccountResourceTest {
     void getAccountInfoFOUND() throws Exception {
         this.mvc.perform(get("/account").
                 with(oauth2Login()
-                        .attributes(attr -> attr.put("name","Jeremi Chimbo"))))
+                        .attributes(attr -> attr.put("name","name last"))))
                         .andExpect(content().
-                        string("{\"username\":\"Jeremi_Chimbo\",\"email\":\"jeremichimbo1@gmail.com\"}"));
+                        string("{\"username\":\"name_last\",\"email\":\"email@gmail.com\"}"));
         }
     @Test
     void getAccountInfoNOTFOUND() throws Exception {
