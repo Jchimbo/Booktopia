@@ -24,8 +24,8 @@ class UserResourceTest {
     @Test
     void getRealUserBookList() throws Exception {
         Map<String,Object> attr = new HashMap<>();
-        attr.put("name", "Jeremi Chimbo");
-        attr.put("email", "JeremiChimbo1@gmail.com");
+        attr.put("name", "name last");
+        attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
         this.mvc.perform(get("/booklist").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isOk());
     }
@@ -40,16 +40,16 @@ class UserResourceTest {
     @Test
     void addToBookListNoISBN() throws Exception {
         Map<String,Object> attr = new HashMap<>();
-        attr.put("name", "Jeremi Chimbo");
-        attr.put("email", "JeremiChimbo1@gmail.com");
+        attr.put("name", "name last");
+        attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
         this.mvc.perform(post("/booklist/ ").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
     }
     @Test
     void addToBookListISBN() throws Exception {
         Map<String,Object> attr = new HashMap<>();
-        attr.put("name", "Jeremi Chimbo");
-        attr.put("email", "JeremiChimbo1@gmail.com");
+        attr.put("name", "name last");
+        attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
         this.mvc.perform(post("/booklist/0156012197").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isCreated());
     }
@@ -65,8 +65,8 @@ class UserResourceTest {
     @Test
     void userFoundNoISBNRemoveBook() throws Exception {
         Map<String,Object> attr = new HashMap<>();
-        attr.put("name", "Jeremi Chimbo");
-        attr.put("email", "JeremiChimbo1@gmail.com");
+        attr.put("name", "name last");
+        attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
         this.mvc.perform(delete("/booklist/").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
     }
@@ -74,8 +74,8 @@ class UserResourceTest {
     @Test
     void userFoundAndISBNRemoveBook() throws Exception {
         Map<String,Object> attr = new HashMap<>();
-        attr.put("name", "Jeremi Chimbo");
-        attr.put("email", "JeremiChimbo1@gmail.com");
+        attr.put("name", "name last");
+        attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
         this.mvc.perform(delete("/booklist/0156012197").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isOk());
     }
