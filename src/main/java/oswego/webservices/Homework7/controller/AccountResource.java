@@ -20,8 +20,6 @@ public class AccountResource {
     @Autowired
     public AccountDAO db;
 
-
-
     /**
      * Once auth is passes account is then checked to make sure it is acting on the account that was granted access
      * @return Response

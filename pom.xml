@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>oswego.webservices</groupId>
-	<artifactId>Homework7</artifactId>
+	<artifactId>Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Homework7</name>
 	<description>Homework 6 with security and testing </description>
