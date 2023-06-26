@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Book App</title>
+    <link rel="stylesheet" href="css/stylesheet.css">
 </head>
 <body>
-<a href="/login">Login</a>
+<h1 id="nameTag">Book Library And LookUp Service</h1>
+<form id="search" action="javascript:">
+    <label for="isbn">isbn</label>
+    <input type="text" id="isbn" name="isbn">
+    <input type="submit" value="Submit" onclick="searchIsbn(this.form)">
+</form>
+<div id="login" >
+    <a href=/login>Google Login</a>
+</div>
+
+<script src="js/main.js"></script>
 </body>
 </html>
