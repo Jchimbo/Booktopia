@@ -17,23 +17,8 @@ import java.util.Objects;
 
 @RestController
 public class Homework7Application {
-	Logger logger = LoggerFactory.getLogger(Homework7Application.class);
 
-	@Autowired
-		private AccountDAO db;
 
-//ADDS user to db on login
-		@GetMapping("/")
-		public void user(@AuthenticationPrincipal OAuth2User principal)  {
-			String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-			String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
-			if(db.findById(username).isEmpty()) {
-				db.save(new Account(username, email));
-				logger.info(username + " was logged in and added to database by " + principal.getAttribute("email") );
-			}
-			logger.info(username + " was logged in by " + principal.getAttribute("email") );
-
-		}
 	public static void main(String[] args) {
 		SpringApplication.run(Homework7Application.class, args);
 	}
