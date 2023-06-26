@@ -21,20 +21,22 @@ public class AccountResource {
     public AccountDAO db;
 
     /**
+     * Login Should be initiated by this
      * Once auth is passes account is then checked to make sure it is acting on the account that was granted access
      * @return Response
      */
     @GetMapping( produces = "application/json")
     public ResponseEntity<Account>getAccountInfo( @AuthenticationPrincipal OAuth2User principal){
         String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
+        String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
         if(db.findById(username).isPresent()){
             logger.info(username + " Was found for " + principal.getAttribute("email") );
-            return new ResponseEntity<>(db.findById(username).get(), HttpStatusCode.valueOf(200));
         }else {
-            logger.warn(username + " Was not found for " + principal.getAttribute("email"));
-            return new ResponseEntity<>(HttpStatusCode.valueOf(404));
-
+            //ADDS user to db on login
+            db.save(new Account(username, email));
+            logger.info(username + " was logged in and added to database by " + principal.getAttribute("email") );
         }
+        return new ResponseEntity<>(db.findById(username).get(), HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping(produces ="application/json" )
