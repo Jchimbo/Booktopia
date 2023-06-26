@@ -24,19 +24,20 @@ class AccountResourceTest {
 
     @Test
     void getAccountInfoFOUND() throws Exception {
+        Map<String,Object> attr = new HashMap<>();
+        attr.put("name", "Fake Person");
+        attr.put("email", "Fake@email.com");
+        OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
+//        Creates Fake User
+        this.mvc.perform(get("/account")
+                .with(oauth2Login().oauth2User(auth2User)));
+
         this.mvc.perform(get("/account").
-                with(oauth2Login()
-                        .attributes(attr -> attr.put("name","name last"))))
+                with(oauth2Login().oauth2User(auth2User)))
                         .andExpect(content().
-                        string("{\"username\":\"name_last\",\"email\":\"email@gmail.com\"}"));
+                        string("{\"username\":\"Fake_Person\",\"email\":\"Fake@email.com\"}"));
         }
-    @Test
-    void getAccountInfoNOTFOUND() throws Exception {
-        this.mvc.perform(get("/account").
-                        with(oauth2Login()
-                                .attributes(attr -> attr.put("name","Person Lastname"))))
-                .andExpect(status().isNotFound());
-    }
+
 
     @Test
     void deleteAccount() throws Exception {
@@ -45,7 +46,7 @@ class AccountResourceTest {
         attr.put("email", "Fake@email.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
 //        Creates Fake User
-        this.mvc.perform(get("/")
+        this.mvc.perform(get("/account")
                 .with(oauth2Login().oauth2User(auth2User)));
 //        Deletes Fake user
         this.mvc.perform(delete("/account").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isOk());

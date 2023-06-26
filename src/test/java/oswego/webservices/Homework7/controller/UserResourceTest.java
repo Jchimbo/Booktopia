@@ -12,7 +12,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +26,7 @@ class UserResourceTest {
         attr.put("name", "name last");
         attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
+        this.mvc.perform(post("/booklist/0156012197").with(oauth2Login().oauth2User(auth2User)));
         this.mvc.perform(get("/booklist").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isOk());
     }
     @Test

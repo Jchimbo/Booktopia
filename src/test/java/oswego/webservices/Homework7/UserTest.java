@@ -12,7 +12,7 @@ public class UserTest {
     ArrayList<String> isbn_list = new ArrayList<>();
     String user_name = "testUser";
 
-    private String bookUrl = "http://localhost:8080/book/";
+    private String bookUrl = "http://localhost:8080/api/book/";
     @Test
     public void getBookListTest() throws MalformedURLException, JsonProcessingException {
         isbn_list.add("0060254920");
