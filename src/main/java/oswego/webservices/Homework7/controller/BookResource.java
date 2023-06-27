@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import oswego.webservices.Homework7.api.Book;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/book")
@@ -20,10 +21,13 @@ public class BookResource {
             if(book!= null){
                 String bs = book.toString();
                 logger.info("Book with "+ isbn + " was found");
+                System.out.println(bs);
                 return new ResponseEntity<>(bs, HttpStatusCode.valueOf(200));
             }else {
                 logger.error("Book with "+ isbn + " was not found");
-                return new ResponseEntity<>( HttpStatusCode.valueOf(404));
+                Book nf = new Book("\"Not Found\"", new ArrayList<>(), "\"img/NotFound.png\"");
+                System.out.println(nf);
+                return new ResponseEntity<>( nf.toString(),HttpStatusCode.valueOf(404));
 
             }
 

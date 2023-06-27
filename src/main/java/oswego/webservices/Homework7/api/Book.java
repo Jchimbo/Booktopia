@@ -53,7 +53,7 @@ public class Book {
         String title = openLibJson.get("title").toString();
         JsonArray isbnJsonArr = openLibJson.get("isbn_13").asJsonArray();
         ArrayList<String> isbn = convertIsbnArray(isbnJsonArr);
-        String cover = " ";
+        String cover = "\"img/NotFound.png\"";
         JsonParser parser = Json.createParser(new StringReader(bookSocket2));
         while (parser.hasNext()){
           JsonParser.Event event = parser.next();
