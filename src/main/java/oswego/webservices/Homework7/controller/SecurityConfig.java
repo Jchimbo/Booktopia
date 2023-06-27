@@ -27,7 +27,8 @@ public class SecurityConfig  {
                         .requestMatchers("/heartbeat").permitAll()
                         .requestMatchers("/booklist","/booklist/*", "/account", "/account/*")
                         .authenticated())
-                .oauth2Login(Customizer.withDefaults());
+                .oauth2Login(Customizer.withDefaults())
+                .logout().logoutSuccessUrl("/index.html").permitAll();
         return http.build();
     }
 

@@ -1,4 +1,4 @@
-#container{
+#container, #results{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,18 +6,21 @@
     text-align: center;
     height: 800px;
 }
-#nameTag{
+#nameTag, #nav{
     display: flex;
     flex-direction: column;
     align-items:flex-end
 }
+#results{
+    height: 0;
+}
+
 h1{
     color: white;
 }
 
 
 #cover{
-    width: 60%;
     display: block;
     margin-left: auto;
     margin-right: auto;
