@@ -1,9 +1,29 @@
-#nameTag, #search, #title, #login{
+#container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    height: 800px;
+}
+#nameTag{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end
+}
+h1{
+    color: white;
 }
 
+
 #cover{
+    width: 60%;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+body{
+    background-color: lightslategrey;
 }
