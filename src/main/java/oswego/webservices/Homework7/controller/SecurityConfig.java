@@ -24,7 +24,9 @@ public class SecurityConfig  {
                 .and().csrf()
                 .disable()
                 .authorizeHttpRequests((auth) ->auth
-                        .requestMatchers("/booklist","/booklist/*", "/account", "/account/*").authenticated())
+                        .requestMatchers("/heartbeat").permitAll()
+                        .requestMatchers("/booklist","/booklist/*", "/account", "/account/*")
+                        .authenticated())
                 .oauth2Login(Customizer.withDefaults());
         return http.build();
     }
