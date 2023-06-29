@@ -20,13 +20,11 @@ public class BookResource {
             Book book = Book.getBook(isbn);
             if(book!= null){
                 String bs = book.toString();
-                logger.info("Book with "+ isbn + " was found");
-                System.out.println(bs);
+                logger.info("Book with "+ isbn + " wass found");
                 return new ResponseEntity<>(bs, HttpStatusCode.valueOf(200));
             }else {
                 logger.error("Book with "+ isbn + " was not found");
                 Book nf = new Book("\"Not Found\"", new ArrayList<>(), "\"img/NotFound.png\"");
-                System.out.println(nf);
                 return new ResponseEntity<>( nf.toString(),HttpStatusCode.valueOf(404));
 
             }
