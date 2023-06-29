@@ -25,7 +25,7 @@ public class SecurityConfig  {
                 .disable()
                 .authorizeHttpRequests((auth) ->auth
                         .requestMatchers("/heartbeat").permitAll()
-                        .requestMatchers("/booklist","/booklist/*", "/account", "/account/*")
+                        .requestMatchers("/books.html","/booklist","/booklist/*", "/account", "/account/*")
                         .authenticated())
                 .oauth2Login(Customizer.withDefaults())
                 .logout().logoutSuccessUrl("/index.html").permitAll();

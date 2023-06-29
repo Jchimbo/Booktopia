@@ -1,34 +1,10 @@
-fetch('http://localhost:8080/heartbeat',
-    {
-        method: 'GET',
-    }).then((response) => response.text())
-    .then((text) => {
-        if (text === "true") {
-            fetch('http://localhost:8080/account', {
-                method: 'GET',
-            }).then((response) => response.json())
-                .then((json) => {
-                        var nameTagDiv = document.createElement("Div");
-                        nameTagDiv.setAttribute("id", "nameTag");
-                        var email = document.createElement("H1");
-                        email.setAttribute("id", "title")
-                        var text = document.createTextNode(json.email);
-                        email.appendChild(text);
-                        nameTagDiv.appendChild(email);
-                        var nav = document.createElement("Div");
-                        nav.setAttribute("id", "nav");
-                        var logout = document.createElement("a");
-                        logout.href='http://localhost:8080/logout';
-                        logout.text = 'Logout';
-                        nav.appendChild(logout);
-                        document.body.prepend(nav);
-                        document.body.prepend(nameTagDiv);
+import {nav} from "./nav.js";
 
-                    }
-                )
-        }
-
-    })
+nav();
+document.getElementById('search').addEventListener('submit', function(event) {
+    event.preventDefault();
+    searchIsbn(event.target);
+});
 
 function searchIsbn(form) {
     // Remove previous Result
@@ -58,6 +34,7 @@ function searchIsbn(form) {
             div.appendChild(title);
             document.body.appendChild(div);
         });
+
     const stylesheet = document.styleSheets[0];
     let elementRules;
 
@@ -71,6 +48,15 @@ function searchIsbn(form) {
     }
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
