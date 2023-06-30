@@ -28,9 +28,27 @@ function searchIsbn(form) {
             img.setAttribute("alt", "cover of " + json.title)
             div.appendChild(img);
             var title = document.createElement("H1");
-            title.setAttribute("id", "title")
+            title.setAttribute("id", "title");
             var text = document.createTextNode(json.title);
             title.appendChild(text);
+            var addBookButton = document.createElement("button");
+            var label = document.createTextNode("Add Book");
+            addBookButton.appendChild(label);
+            addBookButton.id = "add_book";
+            fetch('http://localhost:8080/heartbeat',
+                {
+                    method: 'GET',
+                }).then((response) => response.text())
+                .then((text) => {
+                    if (text === "true") {
+                        div.appendChild(addBookButton);
+                        addBookButton.addEventListener("click", function add(){
+                            fetch('http://localhost:8080/booklist/' + inputValue, {
+                                method: 'POST'
+                            }).then(r => console.log(r.status));
+                        });
+                    }
+                })
             div.appendChild(title);
             document.body.appendChild(div);
         });
