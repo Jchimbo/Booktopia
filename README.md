@@ -11,9 +11,15 @@ This project requires a MySQL database to be up and running the database's
 information can be customized in the application properties file located in /src/main/java/resources.
 The default database is called tomcat. 
 
-To create it login to mysql using the user information made above:
+Create default user:
 
-<code>sudo mysql -u username -p  </code>
+<code>CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'tomcatpass';</code>
+
+Grant Permissions on tomcat database:
+
+<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON tomcat.* TO 'tomcat'@'localhost';</code>
+
+To create it login to mysql using the user information made above: <code>sudo mysql -u username -p  </code>
 
 Then make the database: 
 
