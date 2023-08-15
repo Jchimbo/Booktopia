@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookTest {
-    Book book = new Book("A", new ArrayList<>(), "a");
+    Book book = new Book("A", new ArrayList<>(), "a", "des");
     @Test
     public void getBookFromQuery() throws IOException {
         String title = Book.getBook("0060254920").getTitle();

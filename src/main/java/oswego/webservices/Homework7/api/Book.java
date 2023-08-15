@@ -3,33 +3,39 @@ package oswego.webservices.Homework7.api;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.*;
-import jakarta.json.stream.JsonParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
+
 @Component
 public class Book {
+
     @JsonProperty("title")
     String title;
     @JsonProperty("isbn")
     ArrayList<String> isbn;
     @JsonProperty("cover")
     String cover;
+    @JsonProperty("description")
+    String description;
     @JsonIgnore
-    private static final String OPEN_LIBRARY_API = "https://openlibrary.org/isbn/";
+    private static final String OPEN_LIBRARY_API = "https://openlibrary.org/";
     @JsonIgnore
     private static final String GOOGLE_API = "https://www.googleapis.com/books/v1/volumes?q=";
     @JsonIgnore
     private static String API_KEY;
 
 
-    public Book(String title, ArrayList<String> isbnArr, String cover) {
+    public Book(String title, ArrayList<String> isbnArr, String cover, String description) {
         this.title = title;
         this.isbn = isbnArr;
         this.cover = cover;
+        this.description = description;
     }
 
     //    Needed for Jackson
@@ -45,32 +51,49 @@ public class Book {
      * @throws IOException url might not work
      */
     public static Book getBook(String query) throws IOException {
-        String bookSocket1 = new BookSocket(new URL(OPEN_LIBRARY_API + query + ".json")).getJsonString();
+//        Setup Sockets and Variables
         String bookSocket2 = new BookSocket(new URL(GOOGLE_API + query + API_KEY)).getJsonString();
-        if (bookSocket1 == null || bookSocket2 == null) return null;
-        JsonReader reader = getJsonReader(bookSocket1);
-        JsonObject openLibJson = reader.readObject();
+        JsonObject openLibJson = getJsonObject(OPEN_LIBRARY_API+"isbn/" + query + ".json");
+        if ( bookSocket2 == null || openLibJson == null) return null;
         String title = openLibJson.get("title").toString();
+        ArrayList<String> isbn;
+        String cover;
+        String des = "";
+        //  Get ISBN array
         JsonArray isbnJsonArr = openLibJson.get("isbn_13").asJsonArray();
-        ArrayList<String> isbn = convertIsbnArray(isbnJsonArr);
-        String cover = "\"img/NotFound.png\"";
-        JsonParser parser = Json.createParser(new StringReader(bookSocket2));
-        while (parser.hasNext()){
-          JsonParser.Event event = parser.next();
-          if (event == JsonParser.Event.KEY_NAME){
-              String key = parser.getString();
-              event = parser.next();
-              if (key.equals( "thumbnail")){
-                  return new Book(title, isbn, "\""+parser.getString()+"\"");
-              }
-          }
-
+        isbn = convertArray(isbnJsonArr);
+//        Get Description from Socket
+        if (openLibJson.get("works") != null) {
+            String works = openLibJson.get("works").asJsonArray().get(0).asJsonObject().getString("key");
+            Object temp = Objects.requireNonNullElse(getJsonObject(OPEN_LIBRARY_API + works + ".json"), "Not found");
+            des = ((JsonObject) temp ).get("description").toString().replace("\"","");
         }
-        return new Book(title,isbn,"\""+cover +"\"");
+//       Get Cover
+        cover = OPEN_LIBRARY_API.replace("https://","https://covers.") +"b/isbn/" +query+"-L.jpg";
+
+//        JsonParser parser = Json.createParser(new StringReader(bookSocket2));
+//        while (parser.hasNext()){
+//          JsonParser.Event event = parser.next();
+//          if (event == JsonParser.Event.KEY_NAME){
+//              String key = parser.getString();
+//              event = parser.next();
+//              if (key.equals( "thumbnail")){
+//                  return new Book(title, isbn, "\""+parser.getString()+"\"", "\""+ des +"\"");
+//              }
+//          }
+//
+//        }
+        return new Book(title,isbn,"\""+cover +"\"", "\""+ des +"\"");
     }
 
+    private static JsonObject getJsonObject(String url) throws MalformedURLException {
+        String bookSocket = new BookSocket(new URL(url)).getJsonString();
+        if (bookSocket == null) return null;
+        JsonReader reader = getJsonReader(bookSocket);
+        return reader.readObject();
+    }
 
-    private static ArrayList<String> convertIsbnArray(JsonArray jsonArray) {
+    private static ArrayList<String> convertArray(JsonArray jsonArray) {
         ArrayList<String> temp = new ArrayList<>();
         for (JsonValue a : jsonArray) {
             temp.add(a.toString());
@@ -94,7 +117,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s}", title, isbn, cover);
+        return String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s}", title, isbn, cover, description);
     }
 
 
