@@ -2,22 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book App</title>
-    <link rel="stylesheet" href="css/stylesheet.css">
+    <title>Booktopia</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
-<body>
-<div id="container">
-    <img id="banner" src="img/Banner.png" alt="Book Library And LookUp Service">
-<form id="search" action="javascript:;">
-    <label for="isbn">isbn</label>
-    <input type="text" id="isbn" name="isbn">
-    <input type="submit" value="Submit">
-</form>
-<div id="login" >
-    <a  href=/login>Google Login</a>
-</div>
-</div>
 
+<!-- Nav Bar -->
+<body style="background-color: #f4f1ea;">
+<div class="px-5 pt-2 pb-2 d-flex flex-row" style="gap:10px;" id="nav">
+    <div class="col" id="webName">
+        <h1>Booktopia</h1>
+    </div>
+    <form class="col" id="search" action="javascript:;">
+        <div class="row mx-auto" style="width: 200px;">
+            <input class="form-control" type="text" id="isbn" placeholder="Search Isbn">
+        </div>
+    </form>
+    <div class="ps-5 col" >
+            <div class="d-flex flex-row-reverse" id="endNav">
+                <a class="btn btn-primary " id="login" href="/login" role="button">Google Login</a>
+            </div>
+    </div>
+</div>
+<div id="container">
+
+</div>
+<footer>
+    <div class="d-flex align-items-end flex-column  p-5">
+        <div>
+            <h4>Author: Jeremi Chimbo</h4>
+        </div>
+        <div>
+            <h4><a href="mailto:hege@example.com">JeremiChimbo1@gmail.com</a></h4>
+        </div>
+
+    </div>
+</footer>
 <script type="module" src="js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </body>
 </html>
