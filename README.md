@@ -1,4 +1,4 @@
-# Book Library And LookUp Service
+# Booktopia Formally known as Book Library And LookUp Service
 A simple backend and frontend for  storing a booklist and searching for books using springboot and Google Oauth.
 
 ## Requirements
@@ -19,7 +19,7 @@ Grant Permissions on tomcat database:
 
 <code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON tomcat.* TO 'tomcat'@'localhost';</code>
 
-To create it login to mysql using the user information made above: <code>sudo mysql -u username -p  </code>
+To create it login to mysql using the user information made above: <code>sudo mysql -u tomcat -p  </code>
 
 Then make the database: 
 
