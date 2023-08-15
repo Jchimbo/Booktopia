@@ -1,4 +1,4 @@
-#Booktopia Formally known as Book Library And LookUp Service
+# Booktopia Formally known as Book Library And LookUp Service
 A simple backend and frontend for  storing a booklist and searching for books using springboot and Google Oauth.
 
 ## Requirements
