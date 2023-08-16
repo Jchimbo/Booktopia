@@ -7,12 +7,13 @@ import oswego.webservices.Homework7.api.User;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserTest {
     ArrayList<String> isbn_list = new ArrayList<>();
     String user_name = "testUser";
 
-    private String bookUrl = "http://localhost:8080/api/book/";
+    private String bookUrl = "http://localhost:8080/book/";
     @Test
     public void getBookListTest() throws MalformedURLException, JsonProcessingException {
         isbn_list.add("0060254920");
@@ -20,8 +21,10 @@ public class UserTest {
         User user = new User(user_name,isbn_list);
         user.setBookUrl(bookUrl);
         ArrayList<Book> bookArrayList = user.getBook_list();
-//        May return true if connection is refused to the booksocket class from OpenBook or GoogleBook
-        assertEquals( false, bookArrayList.isEmpty());
+//        May return true if connection is refused if machine is not running app
+            assertEquals( false, bookArrayList.isEmpty());
+
+
     }
 
     @Test
