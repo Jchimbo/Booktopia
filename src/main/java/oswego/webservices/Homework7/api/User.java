@@ -64,6 +64,10 @@ public class User {
         return book_list;
     }
 
+    public ArrayList<String> getIsbn_list() {
+        return isbn_list;
+    }
+
     public String getUsername() {
         return username;
     }

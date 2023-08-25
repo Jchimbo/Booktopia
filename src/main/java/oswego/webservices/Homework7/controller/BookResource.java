@@ -24,7 +24,7 @@ public class BookResource {
                 return new ResponseEntity<>(bs, HttpStatusCode.valueOf(200));
             }else {
                 logger.error("Book with "+ isbn + " was not found");
-                Book nf = new Book("\"Not Found\"", new ArrayList<>(), "\"img/NotFound.png\"", "\"description not found\"");
+                Book nf = new Book("\"Not Found\"", new ArrayList<>(), "\"img/NotFound.png\"", "\"description not found\"", "\"author not found\"");
                 return new ResponseEntity<>( nf.toString(),HttpStatusCode.valueOf(404));
 
             }
