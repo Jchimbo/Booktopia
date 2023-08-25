@@ -24,7 +24,7 @@ function searchIsbn(form) {
     }).then((response) => response.json())
         .then((json) => {
             var bookPageDiv = document.createElement("Div");
-            bookPageDiv.setAttribute("class", "p-5 d-flex flex-row");
+            bookPageDiv.setAttribute("class", "p-5 m-5 d-flex flex-row");
             bookPageDiv.setAttribute("id", "book_page");
             bookPageDiv.setAttribute("style","background-color: white;");
 
@@ -77,9 +77,11 @@ function searchIsbn(form) {
             var title = document.createElement("h2");
             var text = document.createTextNode(json.title);
             title.appendChild(text);
+            // Author
             var author = document.createElement("h3");
-            var authName = document.createTextNode(json.title);
+            var authName = document.createTextNode(json.author);
             author.appendChild(authName);
+            // Description
             var des = document.createElement("p");
             var desText = document.createTextNode(json.description);
 
