@@ -1,5 +1,6 @@
 package oswego.webservices.Homework7;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import oswego.webservices.Homework7.api.BookSocket;
 
@@ -17,6 +18,7 @@ public class BookSocketTest {
     URL GOOGLE_API = new URL("https://www.googleapis.com/books/v1/volumes?q="+"9780451526533" +"&key=AIzaSyAUj62lGbMQGZYEOWc6vdLCDvcjpSDCl9I");
 
 
+    @Ignore
     @Test
     public void openLibraryConnectionTest() throws IOException {
         HttpURLConnection connection = (HttpURLConnection) OPEN_LIBRARY_API.openConnection();

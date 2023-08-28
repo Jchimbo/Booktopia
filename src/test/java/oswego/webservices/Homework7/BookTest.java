@@ -18,7 +18,7 @@ public class BookTest {
 
     @Test
     public void getToString(){
-        assertEquals( String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s}", "A","[]","a", "des","\"auth\""), book.toString());
+        assertEquals( String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s, \"author\": %s}", "A","[]","a", "des","\"auth\""), book.toString());
     }
 
 

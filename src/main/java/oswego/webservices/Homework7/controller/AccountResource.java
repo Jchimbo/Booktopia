@@ -14,6 +14,7 @@ import oswego.webservices.Homework7.model.AccountDAO;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/account")
 public class AccountResource {
     Logger logger = LoggerFactory.getLogger(AccountResource.class);
