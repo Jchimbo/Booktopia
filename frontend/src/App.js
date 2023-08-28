@@ -57,9 +57,6 @@ function App() {
                 </div>
             </div>
             <div id="container" >
-                {/*{isLoading ? ( <Spinner/> ) : (<BookData.Provider value={bData}>*/}
-                {/*    <SearchResult/>*/}
-                {/*</BookData.Provider>) }*/}
                 <LoadingState.Provider value={isLoading}>
                     <BookData.Provider value={bData}>
                         <SearchResult/>
@@ -80,32 +77,5 @@ function App() {
         </div>
     );
 }
-
-
-// function AddBook(){
-//    function handleClick(){
-//         axios.get(serverUrl+'heartbeat',)
-//             .then(function (response){
-//                 var text = response.data
-//                 if (text === "true") {
-//                     addBookButton.addEventListener("click", function add(){
-//                         fetch('http://localhost:8080/booklist/' + inputValue, {
-//                             method: 'POST'
-//                         }).then(r =>
-//                             console.log(r.status))
-//                         // alert("Book Sent"));
-//                     });
-//                 }
-//             }).catch(function (error){
-//             console.log(error);
-//         })}
-//     return(
-//         <button className="btn btn-primary" id="add_book" type="button" onClick={handleClick}>
-//             "Add Book To Book List"
-//         </button>
-//     )
-// }
-
-
 
 export default App;

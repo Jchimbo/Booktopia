@@ -1,6 +1,8 @@
 import {BookData, LoadingState} from "../App";
-import {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Spinner} from "./spinner.js";
+import {serverUrl} from "./connect.js"
+import axios from "axios";
 
 function SearchResult(){
     let bookInfo = useContext(BookData);
@@ -34,7 +36,9 @@ function Result(){
 
             </div>
             <div className="pt-3 mx-auto" id="add_button">
-                {/*<AddBook />*/}
+                <BookData.Provider value={bookInfo}>
+                    <AddBook />
+                </BookData.Provider>
             </div>
             <div class= "ps-5" id="description">
                 <h2>{bookInfo.title}</h2>
@@ -45,6 +49,32 @@ function Result(){
             </div>
         </div>
     )
+}
+
+function AddBook(){
+    let bookInfo = useContext(BookData);
+    const [loggedIn, setLoggedIn] = useState("false");
+    axios.get('heartbeat').then(function (response) {
+        console.log(response);
+        setLoggedIn(response.data);
+    }).catch(function (error) {
+        console.log(error);
+    })
+    const handleClick= () => {
+        fetch('http://localhost:8080/booklist/' + bookInfo.isbn, {
+            method: 'POST'
+        }).then(r =>
+            console.log(r.status))
+    }
+        if (loggedIn) {
+            return(
+                <button className="btn btn-primary" id="add_book" type="button" onClick={handleClick}>
+                    "Add Book To Book List"
+                </button>
+            );
+        }else {
+            return (<div></div>);
+        }
 }
 
 function NoResult(){
