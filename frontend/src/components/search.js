@@ -1,6 +1,6 @@
 import {BookData, LoadingState} from "../App";
 import {useContext} from "react";
-import {Spinner} from "./spinner";
+import {Spinner} from "./spinner.js";
 
 function SearchResult(){
     let bookInfo = useContext(BookData);
