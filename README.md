@@ -7,8 +7,17 @@ Please use this guide to setup [MYSQL](https://www.digitalocean.com/community/tu
 
 #### Manual Database Setup
 This project requires a MySQL database to be up and running the database's
-information can be customized in the application properties file located in /src/main/java/resources.
-The default database is called tomcat. 
+information has to be customized in the application properties file located in /src/main/java/resources.
+This is where you will replace the following lines with the information between the `<customizedArea>`. 
+
+Lines to be altered:
+<ol>
+  <li>spring.datasource.url=jdbc:mysql://localhost:3306/`<databaseName>`</li>
+  <li>spring.datasource.username=`<username>`</li>
+  <lispring.datasource.password=`<tomcatpass>`</li>
+  <li>book.url.customProperty=http://`<domain>`/book/</li>
+</ol>
+
 
 Create default database:
 
