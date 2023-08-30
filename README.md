@@ -12,7 +12,7 @@ The default database is called tomcat.
 
 Create default database:
 
-<code>CREATE DATABASE '`<databaseName`>';</code>
+<code>CREATE DATABASE '`<databaseName>`';</code>
 
 Create default user:
 
