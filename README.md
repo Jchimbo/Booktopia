@@ -10,19 +10,19 @@ This project requires a MySQL database to be up and running the database's
 information can be customized in the application properties file located in /src/main/java/resources.
 The default database is called tomcat. 
 
+Create default database:
+
+<code>CREATE DATABASE '<databaseName>';</code>
+
 Create default user:
 
-<code>CREATE USER 'tomcat'@'localhost' IDENTIFIED BY 'tomcatpass';</code>
+<code>CREATE USER '<username>'@'<domain>' IDENTIFIED BY '<password>';</code>
 
 Grant Permissions on tomcat database:
 
-<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON tomcat.* TO 'tomcat'@'localhost';</code>
+<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON <database>.* TO '<username>'@'<domain>';</code>
 
-To create it login to mysql using the user information made above: <code>sudo mysql -u tomcat -p  </code>
-
-Then make the database: 
-
-<code> CREATE DATABASE tomcat;</code>
+To create it login to mysql using the user information made above: <code>sudo mysql -u <username> -p  </code>
 
 The database is structured so that there are two required tables users, and book_list. 
 
