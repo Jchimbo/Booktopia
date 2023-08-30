@@ -12,17 +12,17 @@ The default database is called tomcat.
 
 Create default database:
 
-<code>CREATE DATABASE '/<databaseName/>';</code>
+<code>CREATE DATABASE '`<databaseName`>';</code>
 
 Create default user:
 
-<code>CREATE USER '/<username/>'@'/<domain/>' IDENTIFIED BY '/<password/>';</code>
+<code>CREATE USER '`<username>`'@'`<domain>`' IDENTIFIED BY '`<password>`';</code>
 
 Grant Permissions on tomcat database:
 
-<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON /<database/>.* TO '/<username/>'@'/<domain/>';</code>
+<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON `<database>`.* TO `<username>`'@'`<domain>`';</code>
 
-To create it login to mysql using the user information made above: <code>sudo mysql -u /<username/> -p  </code>
+To create it login to mysql using the user information made above: <code>sudo mysql -u `<username>` -p  </code>
 
 The database is structured so that there are two required tables users, and book_list. 
 
