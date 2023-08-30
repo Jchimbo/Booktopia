@@ -12,10 +12,10 @@ This is where you will replace the following lines with the information between 
 
 Lines to be altered:
 <ol>
-  <li>spring.datasource.url=jdbc:mysql://localhost:3306/<databaseName></li>
-  <li>spring.datasource.username=<username></li>
-  <lispring.datasource.password=<tomcatpass></li>
-  <li>book.url.customProperty=http://<domain>/book/</li>
+  <li>spring.datasource.url=jdbc:mysql://localhost:3306/databaseName</li>
+  <li>spring.datasource.username=username</li>
+  <li>spring.datasource.password=tomcatpass</li>
+  <li>book.url.customProperty=http://domain/book/</li>
 </ol>
 
 
