@@ -14,7 +14,7 @@ Lines to be altered:
 <ol>
   <li>spring.datasource.url=jdbc:mysql://localhost:3306/databaseName</li>
   <li>spring.datasource.username=username</li>
-  <li>spring.datasource.password=tomcatpass</li>
+  <li>spring.datasource.password=password</li>
   <li>book.url.customProperty=http://domain/book/</li>
 </ol>
 
