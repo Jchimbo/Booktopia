@@ -20,7 +20,7 @@ public class BookResource {
             Book book = Book.getBook(isbn);
             if(book!= null){
                 String bs = book.toString();
-                logger.info("Book with "+ isbn + " wass found");
+                logger.info("Book with "+ isbn + " was found");
                 return new ResponseEntity<>(bs, HttpStatusCode.valueOf(200));
             }else {
                 logger.error("Book with "+ isbn + " was not found");

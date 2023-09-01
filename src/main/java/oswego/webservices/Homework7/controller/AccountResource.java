@@ -30,14 +30,14 @@ public class AccountResource {
     public ResponseEntity<Account>getAccountInfo( @AuthenticationPrincipal OAuth2User principal){
         String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
         String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
-        if(db.findById(username).isPresent()){
+        if(db.findById(email).isPresent() && db.findById(username).isPresent()){
             logger.info(username + " Was found for " + principal.getAttribute("email") );
         }else {
             //ADDS user to db on login
             db.save(new Account(username, email));
             logger.info(username + " was logged in and added to database by " + principal.getAttribute("email") );
         }
-        return new ResponseEntity<>(db.findById(username).get(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(db.findById(email).get(), HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping(produces ="application/json" )

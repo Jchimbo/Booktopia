@@ -9,12 +9,12 @@ import jakarta.persistence.Table;
 @Entity(name = "account")
 @Table(name= "users")
 public class Account {
-    @Id
+
     @Column(name = "`user_name`")
     @JsonProperty
     private  String username;
 
-
+    @Id
     @Column(name="`user_email`")
     @JsonProperty
     private String email;
