@@ -1,14 +1,10 @@
 package oswego.webservices.Homework7;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
-import oswego.webservices.Homework7.api.Book;
 import oswego.webservices.Homework7.api.User;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.net.MalformedURLException;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class UserTest {
     ArrayList<String> isbn_list = new ArrayList<>();
@@ -38,7 +34,7 @@ public class UserTest {
     @Test
     public void testUsernameISBNConstructorUsername(){
         User user = new User(user_name, "0060254920");
-        assertEquals(user_name,user.getUsername());
+        assertEquals(user_name,user.getEmail());
     }
 
 

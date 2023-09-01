@@ -13,9 +13,9 @@ import java.util.ArrayList;
 @Table(name = "book_list")
 public class User {
     @Id
-    @Column(name = "`user_name`")
+    @Column(name = "`user_email`")
     @JsonProperty
-    private String username;
+    private String email;
     @Id
     @Column(name = "`book_isbn`")
     @JsonProperty
@@ -32,14 +32,14 @@ public class User {
 
 
     public User(String userName)  {
-        this.username = userName;
+        this.email = userName;
     }
     public User(String userName, String isbn){
-        this.username = userName;
+        this.email = userName;
         this.isbn = isbn;
     }
-    public User(String userName, ArrayList<String> isbn_list)  {
-        this.username = userName;
+    public User(String email, ArrayList<String> isbn_list)  {
+        this.email = email;
         this.isbn_list = isbn_list;
     }
 
@@ -68,8 +68,8 @@ public class User {
         return isbn_list;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     public String getIsbn() {

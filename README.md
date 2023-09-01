@@ -38,11 +38,11 @@ The database is structured so that there are two required tables users, and book
 The users table is made up of two columns
 user_name and user_email, where the primary key is user_name. 
 
-To create this table: <code> CREATE TABLE users(user_name varchar(255) NOT NULL, user_email varchar(255), PRIMARY KEY (user_name));</code>
+To create this table: <code> CREATE TABLE users(user_name varchar(255) NOT NULL, user_email varchar(255) NOT NULL, PRIMARY KEY (user_email));</code>
 
-The book_list table is made up of two columns, user_name and book_ibsn, where the primary key is a composition of both columns.
+The book_list table is made up of two columns, user_email and book_ibsn, where the primary key is a composition of both columns.
 
-To create this table: <code> CREATE TABLE book_list(user_name varchar(255) NOT NULL, book_isbn varchar(255) NOT NULL,PRIMARY KEY (user_name,book_isbn));</code>
+To create this table: <code> CREATE TABLE book_list(user_email varchar(255) NOT NULL, book_isbn varchar(255) NOT NULL,PRIMARY KEY (user_email,book_isbn));</code>
 
 
 ### GOOGLE OAUTH

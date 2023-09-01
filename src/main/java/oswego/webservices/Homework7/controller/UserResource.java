@@ -38,32 +38,34 @@ public class UserResource {
     @GetMapping
     public ResponseEntity<ArrayList<Book>> getUserBookList( @AuthenticationPrincipal OAuth2User principal) throws MalformedURLException, JsonProcessingException {
           String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-            if (db.existsByUsername(username)) {
+          String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
+            if (db.existsByEmail(email)) {
                 ArrayList<String> isbn_list = new ArrayList<>();
-                for (User a : db.findIsbnByUsername(username)) {
+                for (User a : db.findIsbnByEmail(email)) {
                     isbn_list.add(a.getIsbn());
                 }
-                User userWithBook_list = new User(username, isbn_list);
+                User userWithBook_list = new User(email, isbn_list);
                 userWithBook_list.setBookUrl(bookUrl);
-                logger.info(username + "'s book list was found for " + principal.getAttribute("email") );
+                logger.info(email + "'s book list was found for " + principal.getAttribute("email") );
                 ArrayList<Book> bookArrayList = userWithBook_list.getBook_list();
                 return new ResponseEntity<>(bookArrayList, HttpStatusCode.valueOf(200));
             }else {
-                logger.info(username + "'s book list was not found for " + principal.getAttribute("email") );
+                logger.info(email + "'s book list was not found for " + principal.getAttribute("email") );
 
                 return new ResponseEntity<>( HttpStatusCode.valueOf(404));
             }
     }
     @PostMapping(value = "/{isbn}", produces = "application/json")
     public ResponseEntity<User> addToBookList(@PathVariable("isbn") String isbn, @AuthenticationPrincipal OAuth2User principal) {
-            String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-                if (!isbn.isEmpty() && !isbn.isBlank()) {
-                    User user = new User(username, isbn);
+//            String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
+              String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
+        if (!isbn.isEmpty() && !isbn.isBlank()) {
+                    User user = new User(email, isbn);
                     db.save(user);
-                    logger.info(isbn +" was added to "+ username + "'s book list by" + principal.getAttribute("email") );
+                    logger.info(isbn +" was added to "+ email + "'s book list by" + principal.getAttribute("email") );
                     return new ResponseEntity<>(user, HttpStatusCode.valueOf(201));
                 } else {
-                    logger.info(isbn +" was not added to "+ username + "'s book list by" + principal.getAttribute("email") );
+                    logger.info(isbn +" was not added to "+ email + "'s book list by" + principal.getAttribute("email") );
                     return new ResponseEntity<>(HttpStatusCode.valueOf(404));
                 }
     }
@@ -71,14 +73,14 @@ public class UserResource {
     @Transactional
     @DeleteMapping(value = "/{isbn}", produces = "application/json")
     public ResponseEntity<User> removeBook( @PathVariable("isbn") String isbn, @AuthenticationPrincipal OAuth2User principal) {
-        String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-            if (db.existsByUsername(username)) {
+        String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
+            if (db.existsByEmail(email)) {
                 if (!isbn.isEmpty())    {
-                    db.deleteByusernameAndIsbn(username, isbn);
-                    logger.info(isbn +" was deleted from "+ username + "'s book list by" + principal.getAttribute("email") );
-                    return new ResponseEntity<>(new User(username, isbn), HttpStatusCode.valueOf(200));
+                    db.deleteByEmailAndIsbn(email, isbn);
+                    logger.info(isbn +" was deleted from "+ email + "'s book list by" + principal.getAttribute("email") );
+                    return new ResponseEntity<>(new User(email, isbn), HttpStatusCode.valueOf(200));
                 } else {
-                    logger.error(isbn +" was not deleted from "+ username + "'s book list by" + principal.getAttribute("email" + "because of 404 Error") );
+                    logger.error(isbn +" was not deleted from "+ email + "'s book list by" + principal.getAttribute("email" + "because of 404 Error") );
                 }
             }
             return new ResponseEntity<>(HttpStatusCode.valueOf(404));
