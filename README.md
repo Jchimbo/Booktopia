@@ -52,3 +52,7 @@ Please follow these steps to get a client_id, client_secret, and a token_uri, [G
 ### GOOGLE BOOKS API
 You will also need a google api key to access the google book api. This is to serve as the api that will handle request from the frontend of the application.
 Click on credentials link to get an API KEY from the [GOOGLE BOOKS API](https://developers.google.com/books/docs/v1/using#APIKey).
+
+## Getting Started
+After colning and going through the requirments simply run <code>mvn install</code> to run with test or <code>  mvn install -DskipTests</code> to run without test.
+
