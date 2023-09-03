@@ -1,5 +1,6 @@
-# Booktopia (Formally known as Book Library And LookUp Service)
-A fullstack website for storing a booklist and searching for books using Springboot, Google Oauth, Google Books API, and the Open Book Api.
+# Booktopia
+A fullstack website for storing a booklist and searching for books using Springboot, Google Oauth, and the Open Book Api. I first started devloping this application as way to keep track of books I was interested in, without the hassle of writing down title names or screenshoting covers and having them being lost in my phone storage. This app would serve as a dedicated bookshelf for the books that I'd be interested in picking up at a later date. 
+
 ## Requirements
 
 ### MySQL
