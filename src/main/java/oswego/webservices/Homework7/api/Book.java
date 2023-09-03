@@ -86,7 +86,7 @@ public class Book {
                 author = ((JsonReader) temp).readObject().get("name").toString().replace("\"", "");
             }
 //       Get Cover
-            cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-L.jpg";
+            cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-M.jpg";
             return new Book(title, isbn, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
 
         } else if (openLibJson == null && googleBookJson != null) {

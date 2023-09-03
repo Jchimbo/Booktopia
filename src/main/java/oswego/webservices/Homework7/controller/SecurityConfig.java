@@ -42,10 +42,10 @@ public class SecurityConfig  {
                 .disable()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/heartbeat", "book/*", "/", "index.html").permitAll()
-                        .requestMatchers("/books.html", "/booklist", "/booklist/*", "/account", "/account/*")
+                        .requestMatchers("/bookshelf", "/bookshelf/*", "/booklist", "/booklist/*", "/account", "/account/*")
                         .authenticated())
                 .oauth2Login(Customizer.withDefaults())
-                .logout().logoutSuccessUrl("/index.html").permitAll();
+                .logout().logoutSuccessUrl("/").permitAll();
         return http.build();
     }
 }

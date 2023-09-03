@@ -69,7 +69,7 @@ function App() {
                         <h4>Author: Jeremi Chimbo</h4>
                     </div>
                     <div>
-                        <h4><a href="mailto:hege@example.com">JeremiChimbo1@gmail.com</a></h4>
+                        <h4><a href="mailto:JeremiChimbo1@gmail.com">JeremiChimbo1@gmail.com</a></h4>
                     </div>
 
                 </div>

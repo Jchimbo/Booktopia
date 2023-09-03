@@ -1,4 +1,3 @@
-import {serverUrl} from "./connect.js";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -31,9 +30,9 @@ function DropDownButton() {
         <>
             <div className="d-flex text-end">
                 <DropdownButton className="col" id="dropdown-basic-button" title= {account.email}>
-                    <Dropdown.Item href={serverUrl + 'index.html'}>Book Search</Dropdown.Item>
-                    <Dropdown.Item href={serverUrl + 'books.html'}>Book List</Dropdown.Item>
-                    <Dropdown.Item href={serverUrl + 'logout'}>Logout</Dropdown.Item>
+                    <Dropdown.Item href={'/'}>Book Search</Dropdown.Item>
+                    <Dropdown.Item href={'/bookshelf'}>Bookshelf</Dropdown.Item>
+                    <Dropdown.Item href={'/logout'}>Logout</Dropdown.Item>
                 </DropdownButton>
             </div>
         </>

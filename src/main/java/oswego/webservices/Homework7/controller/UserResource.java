@@ -37,7 +37,6 @@ public class UserResource {
 
     @GetMapping
     public ResponseEntity<ArrayList<Book>> getUserBookList( @AuthenticationPrincipal OAuth2User principal) throws MalformedURLException, JsonProcessingException {
-          String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
           String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
             if (db.existsByEmail(email)) {
                 ArrayList<String> isbn_list = new ArrayList<>();
@@ -57,8 +56,7 @@ public class UserResource {
     }
     @PostMapping(value = "/{isbn}", produces = "application/json")
     public ResponseEntity<User> addToBookList(@PathVariable("isbn") String isbn, @AuthenticationPrincipal OAuth2User principal) {
-//            String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-              String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
+        String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
         if (!isbn.isEmpty() && !isbn.isBlank()) {
                     User user = new User(email, isbn);
                     db.save(user);

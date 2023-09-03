@@ -4,8 +4,21 @@
   text-align: center;
 }
 
-#MainPageDiv{
+h1,h4,h5,h6{
+  color: #52474B;
+}
+h2, h3{
+  color:#AE8D5E;
+}
+
+#MainPageDiv, #topBar{
   background-color:#f4f1ea;
+}
+ #bookShelf{
+   background-image:url("./4Pckfz.png");
+ }
+#Shelf{
+  background-color: transparent;
 }
 #book_page{
   background-color: white;
