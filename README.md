@@ -1,5 +1,5 @@
 # Booktopia
-A fullstack website for storing a booklist and searching for books using Springboot, Google Oauth, and the Open Book Api. I first started devloping this application as way to keep track of books I was interested in, without the hassle of writing down title names or screenshoting covers and having them being lost in my phone storage. This app would serve as a dedicated bookshelf for the books that I'd be interested in picking up at a later date. 
+A fullstack website for storing a booklist and searching for books using Springboot, Google Oauth, and the Open Book Api. I first started devloping this application as way to keep track of books I was interested in, without the hassle of writing down title names or screenshoting covers and having them being lost in my phone storage. This app would serve as a dedicated bookshelf for the books that I'd be interested in picking up at a later date. I plan to implement a recomendation system using book genres.
 
 ## Getting Started
 After cloning and going through the requirments simply run <code>mvn install</code> to run with test or <code>  mvn install -DskipTests</code> to run without 
