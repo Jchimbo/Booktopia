@@ -38,10 +38,9 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
-                .csrf()
-                .disable()
+                .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/heartbeat", "book/*", "/", "index.html").permitAll()
+                        .requestMatchers("/heartbeat", "/", "index.html", "/book/*").permitAll()
                         .requestMatchers("/bookshelf", "/bookshelf/*", "/booklist", "/booklist/*", "/account", "/account/*")
                         .authenticated())
                 .oauth2Login(Customizer.withDefaults())

@@ -18,8 +18,8 @@ public class Account {
     @Column(name="`user_email`")
     @JsonProperty
     private String email;
-    public Account(String username) {
-        this.username = username;
+    public Account(String email) {
+        this.email = email;
     }
     public Account(String username, String email) {
         this.username = username;

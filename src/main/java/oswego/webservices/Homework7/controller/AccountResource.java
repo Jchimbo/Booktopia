@@ -42,13 +42,13 @@ public class AccountResource {
 
     @DeleteMapping(produces ="application/json" )
     public ResponseEntity<Account> deleteAccount( @AuthenticationPrincipal OAuth2User principal){
-        String username = Objects.requireNonNull(principal.getAttribute("name")).toString().replaceAll(" ", "_");
-        if(db.findById(username).isPresent() ){
-            db.delete(new Account(username));
-            logger.info(username + " Was removed by " + principal.getAttribute("email") );
+        String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
+        if(db.findById(email).isPresent() ){
+            db.delete(new Account(email));
+            logger.info(email + " Was removed by " + principal.getAttribute("email") );
             return new ResponseEntity<>(HttpStatusCode.valueOf(200));
         }else {
-            logger.error(username + " Was not removed by " + principal.getAttribute("email") );
+            logger.error(email + " Was not removed by " + principal.getAttribute("email") );
             return  new ResponseEntity<>(HttpStatusCode.valueOf(404));
         }
 
