@@ -3,6 +3,8 @@ import {EndNav} from './components/endNav';
 import {SearchResult} from "./components/search";
 import {createContext, useState} from "react";
 import "./App.scss";
+import Logo from "./components/logo";
+import Footer from "./components/footer";
 let bookJson = "{}";
 export const BookData = createContext(bookJson);
 export const LoadingState = createContext(false);
@@ -42,9 +44,7 @@ function App() {
     return (
         <div id="MainPageDiv">
             <div class="px-5 pt-2 pb-2 d-flex flex-row" styles={{gap: 10 + 'px'}} id="nav">
-                <div class="col" id="webName">
-                    <h1>Booktopia</h1>
-                </div>
+               <Logo/>
                 <div>
                     <form className="col" onKeyDown={handleKeyDown}>
                         <div className="row mx-auto" styles="width: 200px;">
@@ -64,15 +64,7 @@ function App() {
                 </LoadingState.Provider>
             </div>
             <footer>
-                <div class="d-flex align-items-end flex-column  p-5">
-                    <div>
-                        <h4>Author: Jeremi Chimbo</h4>
-                    </div>
-                    <div>
-                        <h4><a href="mailto:JeremiChimbo1@gmail.com">JeremiChimbo1@gmail.com</a></h4>
-                    </div>
-
-                </div>
+               <Footer/>
             </footer>
         </div>
     );

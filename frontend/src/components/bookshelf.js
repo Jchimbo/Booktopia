@@ -1,12 +1,13 @@
 import Card from 'react-bootstrap/Card';
 import axios from "axios";
-import "../../App.scss";
+import "../App.scss";
 import React, {useEffect, useState} from "react";
 import {Accordion, Col, Row} from "react-bootstrap";
-import {EndNav} from "../endNav";
+import {EndNav} from "./endNav";
+import Logo from "./logo";
 
 
-function BasicExample() {
+function BookShelf() {
     const [listData,setListData]=useState([])
     useEffect(
         ()=>{
@@ -22,11 +23,9 @@ function BasicExample() {
     return (
         <div id="topBar">
             <div className="px-5 pt-2 pb-2 d-flex flex-row" styles={{gap: 10 + 'px'}} id="nav">
-                <div className="col" id="webName">
-                    <h1>Booktopia</h1>
-                </div>
+                <Logo/>
                 <div>
-                    <h1>Book Shelf</h1>
+                    <h1>Bookshelf</h1>
                 </div>
                 <div className="ps-5 col">
                     <EndNav/>
@@ -62,4 +61,4 @@ function BasicExample() {
     );
 }
 
-export default BasicExample;
+export default BookShelf;

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
-import BasicExample from './components/bookshelf/bookshelf'
+import BookShelf from './components/bookshelf'
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ErrorPage from "./components/error-page";
@@ -10,7 +10,7 @@ import Logout from "./components/logout";
 const router = createBrowserRouter(
     [
         {path:"/", element:<App/>},
-        {path:"/bookshelf", element:<BasicExample/>},
+        {path:"/bookshelf", element:<BookShelf/>},
         {path:"/logout", element:<Logout/>},
         {path: "/", element: <App />, errorElement: <ErrorPage />,
         },
