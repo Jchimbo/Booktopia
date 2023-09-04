@@ -3,12 +3,9 @@ package oswego.webservices.Homework7.api;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.*;
-import jakarta.json.stream.JsonParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -57,17 +54,18 @@ public class Book {
      * @throws IOException url might not work
      */
     public static Book getBook(String query) throws IOException {
-//        Setup Sockets and Variables
+//        TODO: Google book API Will become a backup
         JsonReader googleBookJson = getJsonObject(GOOGLE_API + query + API_KEY);
+        //        Setup Sockets and Variables
         JsonReader openLibJson = getJsonObject(OPEN_LIBRARY_API + "isbn/" + query + ".json");
         String title ="";
         ArrayList<String> isbn =new ArrayList<>();
         String cover;
         String des = "";
         String author = "";
-        if (googleBookJson == null || openLibJson == null) {
+        if (openLibJson == null) {
             return null;
-        } else if (openLibJson != null) {
+        } else {
             JsonObject openLibJsonObject = openLibJson.readObject();
             title =openLibJsonObject.get("title").toString();
             //  Get ISBN array
@@ -89,21 +87,7 @@ public class Book {
             cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-M.jpg";
             return new Book(title, isbn, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
 
-        } else if (openLibJson == null && googleBookJson != null) {
-            JsonParser parser = Json.createParser((Reader) googleBookJson);
-            while (parser.hasNext()) {
-                JsonParser.Event event = parser.next();
-                if (event == JsonParser.Event.KEY_NAME) {
-                    String key = parser.getString();
-                    event = parser.next();
-                    if (key.equals("thumbnail")) {
-                        return new Book(title, isbn, "\"" + parser.getString() + "\"", "\"" + des + "\"", "\"" + author + "\"");
-                    }
-                }
-
-            }
         }
-        return null;
 
     }
 
