@@ -4,6 +4,13 @@
   text-align: center;
 }
 
+
+card{
+  transition: all .2s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.1);
+}
 h1,h4,h5,h6{
   color: #52474B;
 }
