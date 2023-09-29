@@ -18,16 +18,22 @@ This is where you will replace the following lines with the information between 
 
 Lines to be altered:
 <ol>
-  <li>spring.datasource.url=jdbc:mysql://localhost:3306/databaseName</li>
+  <li>spring.datasource.jdbcurl=jdbc:mysql://localhost:3306/databaseName</li>
   <li>spring.datasource.username=username</li>
   <li>spring.datasource.password=password</li>
   <li>book.url.customProperty=http://domain/book/</li>
+  <li>spring.openlib-datasource.url=jdbc:mysql://localhost:3306/databaseName</li>
+  <li>spring.openlib-datasource.username=username</li>
+  <li>spring.openlib-datasource.password=password</li>
+  <li>book.url.openlib-customProperty=http://domain/book/</li>
 </ol>
 
 
 Create default database:
+This will be called tomcat in folders and in text those spots need to be replaced.
 
 <code>CREATE DATABASE '`<databaseName>`';</code>
+<code>CREATE DATABASE '`<openlibrary>`';</code>
 
 Create default user:
 
@@ -36,6 +42,8 @@ Create default user:
 Grant Permissions on tomcat database:
 
 <code> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON `<database>`.* TO `<username>`'@'`<domain>`'</code>
+<code> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT ON `<openlibrary>`.* TO `<username>`'@'`<domain>`'</code>
+
 
 To create it login to mysql using the user information made above: <code>sudo mysql -u `<username>` -p  </code>
 
@@ -44,11 +52,18 @@ The database is structured so that there are two required tables users, and book
 The users table is made up of two columns
 user_name and user_email, where the primary key is user_name. 
 
+<code>USE  '`<databaseName>`';
+
 To create this table: <code> CREATE TABLE users(user_name varchar(255) NOT NULL, user_email varchar(255) NOT NULL, PRIMARY KEY (user_email));</code>
 
 The book_list table is made up of two columns, user_email and book_ibsn, where the primary key is a composition of both columns.
 
 To create this table: <code> CREATE TABLE book_list(user_email varchar(255) NOT NULL, book_isbn varchar(255) NOT NULL,PRIMARY KEY (user_email,book_isbn));</code>
+
+
+<code>USE  '`<openlibrary>`';
+You will need the books from the books dump in the openlibrary website I will update this tutorial with those instructions at a later point. 
+To create this table: <code> CREATE TABLE books(isbn varchar(18) NOT NULL, title varchar(1852), author varchar(1216), descript TEXT, PRIMARY KEY (isbn));</code>
 
 
 ### GOOGLE OAUTH
