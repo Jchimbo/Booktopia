@@ -1,4 +1,4 @@
-package oswego.webservices.Homework7.api;
+package oswego.webservices.Homework7.api.tomcat;
 
 import java.io.Serializable;
 

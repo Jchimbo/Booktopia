@@ -1,7 +1,7 @@
 package oswego.webservices.Homework7;
 
 import org.junit.jupiter.api.Test;
-import oswego.webservices.Homework7.api.User;
+import oswego.webservices.Homework7.api.tomcat.User;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package oswego.webservices.Homework7;
 
 import org.junit.jupiter.api.Test;
-import oswego.webservices.Homework7.api.Book;
+import oswego.webservices.Homework7.api.openlib.Book;
 
 import java.io.IOException;
 import java.util.ArrayList;

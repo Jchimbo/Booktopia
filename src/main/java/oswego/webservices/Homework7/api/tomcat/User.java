@@ -1,10 +1,12 @@
-package oswego.webservices.Homework7.api;
+package oswego.webservices.Homework7.api.tomcat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
+import oswego.webservices.Homework7.api.openlib.Book;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;

@@ -1,10 +1,13 @@
-package oswego.webservices.Homework7.api;
+package oswego.webservices.Homework7.api.openlib;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.*;
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
+import oswego.webservices.Homework7.api.tomcat.BookSocket;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
@@ -13,29 +16,35 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 @Component
+@Entity(name="book")
+@Table(name="books")
 public class Book {
-
+    @JsonIgnore
+    @Id
+    String isbn;
     @JsonProperty("title")
+    @Column
     String title;
+    @JsonInclude
     @JsonProperty("isbn")
-    ArrayList<String> isbn;
+    @Transient
+    ArrayList<String> isbns;
+    @JsonInclude
     @JsonProperty("cover")
+    @Transient
     String cover;
     @JsonProperty("description")
+    @Column(name = "descript")
     String description;
     @JsonProperty("author")
+    @Column
     String author;
     @JsonIgnore
     private static final String OPEN_LIBRARY_API = "https://openlibrary.org/";
-    @JsonIgnore
-    private static final String GOOGLE_API = "https://www.googleapis.com/books/v1/volumes?q=";
-    @JsonIgnore
-    private static String API_KEY;
-
 
     public Book(String title, ArrayList<String> isbnArr, String cover, String description, String author) {
         this.title = title;
-        this.isbn = isbnArr;
+        this.isbns = isbnArr;
         this.cover = cover;
         this.description = description;
         this.author = author;
@@ -54,12 +63,10 @@ public class Book {
      * @throws IOException url might not work
      */
     public static Book getBook(String query) throws IOException {
-//        TODO: Google book API Will become a backup
-        JsonReader googleBookJson = getJsonObject(GOOGLE_API + query + API_KEY);
         //        Setup Sockets and Variables
         JsonReader openLibJson = getJsonObject(OPEN_LIBRARY_API + "isbn/" + query + ".json");
-        String title ="";
-        ArrayList<String> isbn =new ArrayList<>();
+        String title ="No title Found";
+        ArrayList<String> isbnArr =new ArrayList<>();
         String cover;
         String des = "";
         String author = "";
@@ -67,28 +74,42 @@ public class Book {
             return null;
         } else {
             JsonObject openLibJsonObject = openLibJson.readObject();
-            title =openLibJsonObject.get("title").toString();
+            title = openLibJsonObject.get("title").toString();
             //  Get ISBN array
             JsonArray isbnJsonArr = openLibJsonObject.get("isbn_13").asJsonArray();
-            isbn = convertArray(isbnJsonArr);
+            isbnArr = convertArray(isbnJsonArr);
 //        Get Description from Socket
             if (openLibJsonObject.get("works") != null) {
                 String works = openLibJsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
-                Object temp = Objects.requireNonNullElse(getJsonObject(OPEN_LIBRARY_API + works + ".json"), "Not found");
-                des = ((JsonReader) temp).readObject().get("description").toString().replace("\"", "");
+                JsonReader temp = getJsonObject(OPEN_LIBRARY_API + works + ".json");
+                try{
+                    String jsonVal =  temp.readObject().get("description").toString();
+                    des = removeQuotes(jsonVal);
+                }catch (Exception exception){
+                    des = "No description Found";
+                }
+
             }
             //        Get Author from Socket
             if (openLibJsonObject.get("authors") != null) {
                 author = openLibJsonObject.get("authors").asJsonArray().get(0).asJsonObject().getString("key");
-                Object temp = Objects.requireNonNullElse(getJsonObject(OPEN_LIBRARY_API + author + ".json"), "Not found");
-                author = ((JsonReader) temp).readObject().get("name").toString().replace("\"", "");
+                JsonReader temp = getJsonObject(OPEN_LIBRARY_API + author + ".json");
+                try{
+                    author = removeQuotes(temp.readObject().get("name").toString());
+                }catch (Exception exception){
+                    author="No author Found";
+                }
             }
 //       Get Cover
             cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-M.jpg";
-            return new Book(title, isbn, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
+            return new Book(title, isbnArr, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
 
         }
 
+    }
+
+    public static String removeQuotes(String quoted){
+        return quoted.replace("\"", "");
     }
 
     private static JsonReader getJsonObject(String url) throws MalformedURLException {
@@ -114,14 +135,21 @@ public class Book {
         return title;
     }
 
-    @Value("${google.api.key}")
-    public void setAPI_KEY(String API_KEY) {
-        this.API_KEY = API_KEY;
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getIsbn() {
+        return isbn;
     }
 
     @Override
     public String toString() {
-        return String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s, \"author\": %s}", title, isbn, cover, description, author);
+        return String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s, \"author\": %s}", title, isbns, cover, description, author);
     }
 
 

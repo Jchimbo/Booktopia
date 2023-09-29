@@ -2,7 +2,7 @@ package oswego.webservices.Homework7;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
-import oswego.webservices.Homework7.api.BookSocket;
+import oswego.webservices.Homework7.api.tomcat.BookSocket;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

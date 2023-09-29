@@ -35,7 +35,7 @@ Create default user:
 
 Grant Permissions on tomcat database:
 
-<code> GRANT GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON `<database>`.* TO `<username>`'@'`<domain>`';</code>
+<code> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD ON `<database>`.* TO `<username>`'@'`<domain>`'</code>
 
 To create it login to mysql using the user information made above: <code>sudo mysql -u `<username>` -p  </code>
 

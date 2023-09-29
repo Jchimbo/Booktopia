@@ -1,4 +1,4 @@
-package oswego.webservices.Homework7.api;
+package oswego.webservices.Homework7.api.tomcat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
