@@ -4,8 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-src/main/java/oswego/webservices/Homework7/Homework7Application.java
-src/main/resources/application.properties
+/src/main/resources/application.properties
 
 ### STS ###
 .apt_generated
