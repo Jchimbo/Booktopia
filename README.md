@@ -63,7 +63,7 @@ To create this table: <code> CREATE TABLE book_list(user_email varchar(255) NOT 
 
 
 <code>USE  '`<openlibrary>`';</code>
-You will need the books from the books dump in the openlibrary website I will update this tutorial with those instructions at a later point. 
+A database of books can be found on the openlibrary website in their books dumps section. Although this is a convenient large repository of books it is also rather large so it is not necessary simply creating the table and leaving it unpopulated will suffice. I will update this tutorial with instructions at a later point in time for those who are intrested in having the large database. 
 To create this table: <code> CREATE TABLE books(isbn varchar(18) NOT NULL, title varchar(1852), author varchar(1216), descript TEXT, PRIMARY KEY (isbn));</code>
 
 
