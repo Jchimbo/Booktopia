@@ -12,7 +12,7 @@ This class allows for react routes to work by redirecting them to index.html
 public class DefaultViewConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/bookshelf").setViewName("index.html");
+        registry.addViewController("/error").setViewName("index.html");
         registry.addViewController("/").setViewName("index.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }

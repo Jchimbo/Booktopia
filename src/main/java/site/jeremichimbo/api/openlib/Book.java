@@ -18,14 +18,16 @@ import java.util.ArrayList;
 @Entity(name="book")
 @Table(name="books")
 public class Book {
-    @JsonIgnore
+    @JsonInclude
+    @JsonProperty("isbn")
     @Id
     String isbn;
     @JsonProperty("title")
     @Column
     String title;
-    @JsonInclude
-    @JsonProperty("isbn")
+    //@JsonInclude
+    @JsonIgnore
+    //@JsonProperty("isbn")
     @Transient
     ArrayList<String> isbns;
     @JsonInclude
@@ -44,6 +46,13 @@ public class Book {
     public Book(String title, ArrayList<String> isbnArr, String cover, String description, String author) {
         this.title = title;
         this.isbns = isbnArr;
+        this.cover = cover;
+        this.description = description;
+        this.author = author;
+    }
+ public Book(String title, String isbn, String cover, String description, String author) {
+        this.title = title;
+        this.isbn = isbn;
         this.cover = cover;
         this.description = description;
         this.author = author;
@@ -148,7 +157,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("{\"title\": %s, \"isbn\": %s, \"cover\": %s, \"description\": %s, \"author\": %s}", title, isbns, cover, description, author);
+        return String.format("{\"title\": %s, \"isbn\": \"%s\", \"cover\": %s, \"description\": %s, \"author\": %s}", title, isbn, cover, description, author);
     }
 
 

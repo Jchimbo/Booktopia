@@ -8,11 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.jeremichimbo.api.openlib.Book;
 import site.jeremichimbo.model.openlib.BookDAO;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.io.IOException;
 import java.util.ArrayList;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/book")
 public class BookResource {
     Logger logger = LoggerFactory.getLogger(BookResource.class);
@@ -24,8 +25,9 @@ public class BookResource {
     @GetMapping(value = "/{isbn}",produces = "application/json")
     public ResponseEntity<String> getBook(@PathVariable String isbn) throws IOException {
         if (db.existsById(isbn)){
-            logger.info("Book with "+ isbn + " was found");
+            logger.info("Book with "+ isbn + " was found in database");
             Book tmp = db.findById(isbn).get();
+	    logger.info("THIS IS THE BOOK: " + tmp.toString());
             tmp.setCover("\"https://covers.openlibrary.org/" + "b/isbn/" + isbn + "-M.jpg\"");
             return new ResponseEntity<>(tmp.toString(), HttpStatusCode.valueOf(200));
         }
@@ -34,7 +36,7 @@ public class BookResource {
                 book.setIsbn(isbn);
                 db.save(book);
                 String bs = book.toString();
-                logger.info("Book with "+ isbn + " was found");
+                logger.info("Book with "+ isbn + " was found in openlibrary");
                 return new ResponseEntity<>(bs, HttpStatusCode.valueOf(200));
             }else {
                 logger.error("Book with "+ isbn + " was not found");
