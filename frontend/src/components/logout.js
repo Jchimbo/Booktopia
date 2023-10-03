@@ -5,7 +5,7 @@ import {redirect} from "react-router-dom";
 
 function Logout(){
     useEffect(()=>{
-            axios.get(serverUrl+"/logout")
+            axios.get("/logout")
                 .then(status =>console.log(status) )
                 .catch(error => console.log(error));
     },[])

@@ -15,10 +15,10 @@ function DropDownButton() {
     const [account, setAccount] = useState("Email");
     const getAccount = () => {
         axios.get('account').then(function (response) {
-            console.log(response);
+           // console.log(response);
             setAccount(response.data);
         }).catch(function (error) {
-            // console.log(error);
+            console.log(error);
         })
     }
     useEffect(() => {
@@ -46,10 +46,10 @@ function EndNav() {
     React.useEffect(() => {
         if (loggedIn) {
             axios.get('heartbeat').then(function (response) {
-                console.log(response);
+//                console.log(response);
                 setLoggedIn(response.data);
             }).catch(function (error) {
-                // console.log(error);
+                console.log(error);
             })
         }
     })

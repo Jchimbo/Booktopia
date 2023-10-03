@@ -14,7 +14,9 @@ const router = createBrowserRouter(
         {path:"/logout", element:<Logout/>},
         {path: "/", element: <App />, errorElement: <ErrorPage />,
         },
-    ]
+    ],
+	{basename: "/",
+	}
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

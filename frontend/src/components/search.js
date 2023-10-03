@@ -2,14 +2,13 @@ import {BookData, LoadingState} from "../App";
 import React, {useContext, useState} from "react";
 import { Rating } from 'react-simple-star-rating';
 import {Spinner} from "./spinner.js";
-import {serverUrl} from "./connect.js"
 import axios from "axios";
 import {Toast} from "react-bootstrap";
 
 function SearchResult(){
-    let bookInfo = useContext(BookData);
-
-    console.log("Book Info " + bookInfo);
+  let bookInfo = useContext(BookData);
+    console.log("Book Info: ");
+    console.log(bookInfo);
     if (bookInfo !== "{}"){
         return(
             <BookData.Provider value={bookInfo}>
@@ -27,6 +26,8 @@ function SearchResult(){
 function Result(){
     let bookInfo = useContext(BookData);
     let isLoading = useContext(LoadingState);
+    console.log("Book Info(Result): ");
+    console.log(bookInfo);
     const [rating, setRating] = useState(0)
     // Catch Rating value
     const handleRating = (rate) => {
@@ -73,16 +74,18 @@ function Result(){
 
 function AddBook(){
     let bookInfo = useContext(BookData);
+    console.log("Book Info(Add Book): ");
+    console.log(bookInfo);
     const [loggedIn, setLoggedIn] = useState("false");
     const [showToast, setShowToast] = useState(false);
-    axios.get(serverUrl+'heartbeat').then(function (response) {
-        console.log(response);
+    axios.get('/heartbeat').then(function (response) {
+       // console.log(response);
         setLoggedIn(response.data);
     }).catch(function (error) {
         console.log(error);
     })
     const handleClick= () => {
-        fetch(serverUrl+'booklist/' + bookInfo.isbn, {
+        fetch('/booklist/' + bookInfo.isbn, {
             method: 'POST'
         }).then(() =>
             setShowToast(true));
