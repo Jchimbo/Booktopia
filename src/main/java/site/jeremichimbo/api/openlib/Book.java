@@ -7,12 +7,10 @@ import jakarta.json.*;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 import site.jeremichimbo.api.tomcat.BookSocket;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 @Component
 @Entity(name="book")
@@ -25,11 +23,6 @@ public class Book {
     @JsonProperty("title")
     @Column
     String title;
-    //@JsonInclude
-    @JsonIgnore
-    //@JsonProperty("isbn")
-    @Transient
-    ArrayList<String> isbns;
     @JsonInclude
     @JsonProperty("cover")
     @Transient
@@ -43,13 +36,6 @@ public class Book {
     @JsonIgnore
     private static final String OPEN_LIBRARY_API = "https://openlibrary.org/";
 
-    public Book(String title, ArrayList<String> isbnArr, String cover, String description, String author) {
-        this.title = title;
-        this.isbns = isbnArr;
-        this.cover = cover;
-        this.description = description;
-        this.author = author;
-    }
  public Book(String title, String isbn, String cover, String description, String author) {
         this.title = title;
         this.isbn = isbn;
@@ -74,7 +60,7 @@ public class Book {
         //        Setup Sockets and Variables
         JsonReader openLibJson = getJsonObject(OPEN_LIBRARY_API + "isbn/" + query + ".json");
         String title ="No title Found";
-        ArrayList<String> isbnArr =new ArrayList<>();
+       String isbnFirst ="";
         String cover;
         String des = "";
         String author = "";
@@ -85,7 +71,7 @@ public class Book {
             title = openLibJsonObject.get("title").toString();
             //  Get ISBN array
             JsonArray isbnJsonArr = openLibJsonObject.get("isbn_13").asJsonArray();
-            isbnArr = convertArray(isbnJsonArr);
+            isbnFirst = isbnJsonArr.get(0).toString();
 //        Get Description from Socket
             if (openLibJsonObject.get("works") != null) {
                 String works = openLibJsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
@@ -110,7 +96,7 @@ public class Book {
             }
 //       Get Cover
             cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-M.jpg";
-            return new Book(title, isbnArr, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
+            return new Book(title, isbnFirst, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
 
         }
 
@@ -124,14 +110,6 @@ public class Book {
         String bookSocket = new BookSocket(new URL(url)).getJsonString();
         if (bookSocket == null) return null;
         return getJsonReader(bookSocket);
-    }
-
-    private static ArrayList<String> convertArray(JsonArray jsonArray) {
-        ArrayList<String> temp = new ArrayList<>();
-        for (JsonValue a : jsonArray) {
-            temp.add(a.toString());
-        }
-        return temp;
     }
 
     private static JsonReader getJsonReader(String jsonString) {
