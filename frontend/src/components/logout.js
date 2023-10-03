@@ -1,6 +1,5 @@
 import {useEffect} from "react";
 import axios from "axios";
-import {serverUrl} from "./connect";
 import {redirect} from "react-router-dom";
 
 function Logout(){
