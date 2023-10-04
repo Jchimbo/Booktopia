@@ -11,7 +11,7 @@ function BookShelf() {
     const [isLoading, setIsLoading] = useState(true);
     const [listData, setListData] = useState([]);
     const [isbnToDelete, setIsbnToDelete] = useState("");
-    const cardRef = useRef(null);
+    const cardRef = useRef([]);
     useEffect(
         () => {
             axios.get("/booklist")
@@ -24,11 +24,11 @@ function BookShelf() {
         }, []
     )
 
-    function deleteBook() {
+    function deleteBook(selected_book) {
         axios.post("/booklist/delete/"+isbnToDelete, )
             .then(res => {
                 console.log(res.data);
-                cardRef.current.setAttribute("style","display:none;");
+                cardRef.current[selected_book].setAttribute("style","display:none;");
             })
             .catch(error => console.log(error));
     }
@@ -47,13 +47,12 @@ function BookShelf() {
 
             <div className="container overflow-hidden text-center p-5" id="bookShelf">
                 <Row className="g-1" id="Shelf">
-
                     {isLoading ?
                         <CardLoading/>
                         : listData.map((data, id) => {
                                 return (
                                     <Col key={id} >
-                                        <Card style={{width: '18rem'}} ref={cardRef}>
+                                        <Card style={{width: '18rem'}} ref={ref => cardRef.current[id] = ref}>
                                             <Card.Img variant="top" src={data.cover} width={286} height={360}/>
                                             <Card.Body>
                                                 <Accordion>
@@ -70,7 +69,7 @@ function BookShelf() {
                                                         onClick={ ()=>{
                                                     setIsbnToDelete(data.isbn);
                                                     if(isbnToDelete !== ""){
-                                                        deleteBook();
+                                                        deleteBook(id);
                                                     }
                                                         }}>
                                                     Delete Book
