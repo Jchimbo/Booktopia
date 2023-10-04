@@ -1,0 +1,13 @@
+[Unit]
+Description=Booktopia a bookmarking application.
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=Booktopia
+ExecStart=/home/<USER>/<PATHTOPROJECT>/Booktopia/target/Backend-0.0.1-SNAPSHOT.jar
+
+[Install]
+WantedBy=multi-user.target
