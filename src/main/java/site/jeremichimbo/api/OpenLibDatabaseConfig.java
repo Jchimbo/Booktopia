@@ -23,7 +23,6 @@ import static site.jeremichimbo.api.TomcatDatabaseConfig.getLocalContainerEntity
 public class OpenLibDatabaseConfig {
     @Autowired
     private Environment env;
-    @Primary
     @Bean
     @ConfigurationProperties(prefix="spring.openlib-datasource")
     public DataSource bookDataSource() {
@@ -31,14 +30,13 @@ public class OpenLibDatabaseConfig {
     }
 
     @Bean
-    @Primary
     public LocalContainerEntityManagerFactoryBean bookEntityManager() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(bookDataSource());
         em.setPackagesToScan(new String[] { "site.jeremichimbo.api.openlib" });
         return getLocalContainerEntityManagerFactoryBean(em, env);
     }
-    @Primary
+
     @Bean
     public PlatformTransactionManager bookTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();

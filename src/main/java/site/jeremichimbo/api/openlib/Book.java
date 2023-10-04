@@ -60,7 +60,7 @@ public class Book {
         //        Setup Sockets and Variables
         JsonReader openLibJson = getJsonObject(OPEN_LIBRARY_API + "isbn/" + query + ".json");
         String title ="No title Found";
-       String isbnFirst ="";
+        String isbnFirst ="";
         String cover;
         String des = "";
         String author = "";
@@ -70,8 +70,18 @@ public class Book {
             JsonObject openLibJsonObject = openLibJson.readObject();
             title = openLibJsonObject.get("title").toString();
             //  Get ISBN array
-            JsonArray isbnJsonArr = openLibJsonObject.get("isbn_13").asJsonArray();
-            isbnFirst = isbnJsonArr.get(0).toString();
+            if (openLibJsonObject.get("isbn_13") != null){
+                JsonArray arr = openLibJsonObject.get("isbn_13").asJsonArray();
+                isbnFirst = arr.get(0).toString();
+
+            }else if (openLibJsonObject.get("isbn_10") != null){
+                JsonArray arr = openLibJsonObject.get("isbn_10").asJsonArray();
+                isbnFirst = arr.get(0).toString();
+
+            }else {
+                isbnFirst = "";
+            }
+
 //        Get Description from Socket
             if (openLibJsonObject.get("works") != null) {
                 String works = openLibJsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
