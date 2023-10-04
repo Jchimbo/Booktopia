@@ -87,10 +87,15 @@ public class Book {
                 String works = openLibJsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
                 JsonReader temp = getJsonObject(OPEN_LIBRARY_API + works + ".json");
                 try{
-                    String jsonVal =  temp.readObject().get("description").toString();
+                    String jsonVal =  temp.readObject().get("description").asJsonObject().get("value").toString();
                     des = removeQuotes(jsonVal);
                 }catch (Exception exception){
-                    des = "No description Found";
+                    try{
+                        String jsonVal =  temp.readObject().get("description").toString();
+                        des = removeQuotes(jsonVal);
+                    }catch (Exception ex){
+                        des = "No description Found";
+                    }
                 }
 
             }
