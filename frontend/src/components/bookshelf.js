@@ -11,7 +11,7 @@ function BookShelf() {
     const [isLoading, setIsLoading] = useState(true);
     const [listData, setListData] = useState([]);
     const [isbnToDelete, setIsbnToDelete] = useState("");
-    const ref = useRef(null);
+    const cardRef = useRef(null);
     useEffect(
         () => {
             axios.get("/booklist")
@@ -28,7 +28,7 @@ function BookShelf() {
         axios.post("/booklist/delete/"+isbnToDelete, )
             .then(res => {
                 console.log(res.data);
-            // Hide ref after here
+                cardRef.current.setAttribute("style","display:none;");
             })
             .catch(error => console.log(error));
     }
@@ -52,8 +52,8 @@ function BookShelf() {
                         <CardLoading/>
                         : listData.map((data, id) => {
                                 return (
-                                    <Col key={id}>
-                                        <Card style={{width: '18rem'}} ref={id}>
+                                    <Col key={id} >
+                                        <Card style={{width: '18rem'}} ref={cardRef}>
                                             <Card.Img variant="top" src={data.cover} width={286} height={360}/>
                                             <Card.Body>
                                                 <Accordion>
@@ -69,7 +69,9 @@ function BookShelf() {
                                                 <Button variant="danger"  size="lg"
                                                         onClick={ ()=>{
                                                     setIsbnToDelete(data.isbn);
-                                                    deleteBook();
+                                                    if(isbnToDelete !== ""){
+                                                        deleteBook();
+                                                    }
                                                         }}>
                                                     Delete Book
                                                 </Button>
