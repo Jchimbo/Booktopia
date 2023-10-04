@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import site.jeremichimbo.api.openlib.Book;
 import site.jeremichimbo.api.tomcat.User;
 import site.jeremichimbo.model.tomcat.UserDAO;
-
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -70,7 +69,7 @@ public class UserResource {
     }
 
     @Transactional
-    @DeleteMapping(value = "/{isbn}", produces = "application/json")
+    @PostMapping(value = "/delete/{isbn}", produces = "application/json")
     public ResponseEntity<User> removeBook( @PathVariable("isbn") String isbn, @AuthenticationPrincipal OAuth2User principal) {
         String email = Objects.requireNonNull(principal.getAttribute("email")).toString().replaceAll(" ", "_");
             if (db.existsByEmail(email)) {

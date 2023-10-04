@@ -56,7 +56,7 @@ public class SecurityConfig  {
                 .csrf().disable()
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/heartbeat", "/", "index.html", "/book/*").permitAll()
-                        .requestMatchers("/bookshelf", "/bookshelf/*", "/booklist", "/booklist/*", "/account", "/account/*")
+                        .requestMatchers("/bookshelf", "/bookshelf/*", "/booklist", "/booklist/*", "/booklist/delete/*","/account", "/account/*")
                         .authenticated())
                 .oauth2Login(Customizer.withDefaults())
                 .logout().logoutSuccessUrl("/").permitAll();
