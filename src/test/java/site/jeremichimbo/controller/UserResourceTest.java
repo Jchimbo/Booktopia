@@ -60,7 +60,7 @@ class UserResourceTest {
         attr.put("name", "Person Person");
         attr.put("email", "Person@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
-        this.mvc.perform(delete("/booklist/0156012197").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
+        this.mvc.perform(post("/booklist/delete/0156012197").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
     }
     @Test
     void userFoundNoISBNRemoveBook() throws Exception {
@@ -68,7 +68,7 @@ class UserResourceTest {
         attr.put("name", "name last");
         attr.put("email", "email@gmail.com");
         OAuth2User auth2User = new DefaultOAuth2User(AuthorityUtils.createAuthorityList("SCOPE_message:read"), attr, "name");
-        this.mvc.perform(delete("/booklist/").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
+        this.mvc.perform(post("/booklist/").with(oauth2Login().oauth2User(auth2User))).andExpect(status().isNotFound());
     }
 
     @Test
