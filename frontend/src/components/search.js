@@ -117,11 +117,11 @@ function NoResult(){
         <div className="p-5 m-5 "  id="book_page">
             <h2>How to use this site:</h2>
             <p>
-                This site allows the searching of books using ISBN 13 serial numbers.
-                To search for a book just enter the serial number in the search bar and hit the enter key.
-                The page should then update to show you the book's information.
-                If you are logged into the site using a google account you can then save a book to your book list.
-                Allowing you to store it with it's cover, title and isbn in a shelf like format.
+                This site allows the searching of books using ISBN serial numbers.
+                To search for a book, enter its serial number in the search bar and
+                hit the enter key. The page will then update to show the book's information.
+                If you are logged into the site using a Google account, you can save a book
+                to your book list, storing it with its cover, title, and isbn in a shelf-like format.
             </p>
         </div>
     );
