@@ -9,7 +9,7 @@ test. The app should start on port 8080. If you have not setup a domain it shoul
 ## Requirements
 
 ## JAVA
-Requires OpenJDK openjdk 17.0.8.1 will give an error in hikari pool otherwise.
+Requires OpenJDK 17.0.8.1 will give an error in hikari pool otherwise.
 
 ### MySQL
 Please use this guide to setup [MYSQL](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04).
