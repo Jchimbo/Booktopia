@@ -56,7 +56,7 @@ public class SecurityConfig  {
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.setMatchingRequestParameterName(null);
         http.requestCache((cache) -> cache
-                        .requestCache(requestCache)
+                        .requestCache(null)
                 )
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
