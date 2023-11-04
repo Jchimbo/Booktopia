@@ -12,7 +12,9 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -51,15 +53,24 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
+        requestCache.setMatchingRequestParameterName(null);
+        http.requestCache((cache) -> cache
+                        .requestCache(requestCache)
+                )
                 .cors(Customizer.withDefaults())
-                .csrf().disable()
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/heartbeat", "/", "index.html", "/book/*").permitAll()
                         .requestMatchers("/bookshelf", "/bookshelf/*", "/booklist", "/booklist/*", "/booklist/delete/*","/account", "/account/*")
                         .authenticated())
                 .oauth2Login(Customizer.withDefaults())
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout((logout) ->
+                        logout.deleteCookies("remove")
+                                .invalidateHttpSession(false)
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/").permitAll()
+                );
         return http.build();
     }
 }
