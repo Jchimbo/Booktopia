@@ -13,6 +13,7 @@ public class DefaultViewConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/error?").setViewName("index.html");
+        registry.addViewController("manifest.json").setViewName("index.html");
         registry.addViewController("/").setViewName("index.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
