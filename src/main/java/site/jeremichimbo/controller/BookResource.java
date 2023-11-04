@@ -26,7 +26,7 @@ public class BookResource {
         if (db.existsById(isbn)){
             logger.info("Book with "+ isbn + " was found in database");
             Book tmp = db.findById(isbn).get();
-	    logger.info("THIS IS THE BOOK: " + tmp.toString());
+	        logger.info("THIS IS THE BOOK: " + tmp.toString());
             tmp.setCover("\"https://covers.openlibrary.org/" + "b/isbn/" + isbn + "-M.jpg\"");
             return new ResponseEntity<>(tmp.toString(), HttpStatusCode.valueOf(200));
         }
