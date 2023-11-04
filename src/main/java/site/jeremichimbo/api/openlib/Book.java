@@ -59,56 +59,19 @@ public class Book {
     public static Book getBook(String query) throws IOException {
         //        Setup Sockets and Variables
         JsonReader openLibJson = getJsonObject(OPEN_LIBRARY_API + "isbn/" + query + ".json");
-        String title ="No title Found";
-        String isbnFirst ="";
+        String title;
+        String isbnFirst;
         String cover;
-        String des = "";
-        String author = "";
+        String des;
+        String author;
         if (openLibJson == null) {
             return null;
         } else {
             JsonObject openLibJsonObject = openLibJson.readObject();
-            title = openLibJsonObject.get("title").toString();
-            //  Get ISBN array
-            if (openLibJsonObject.get("isbn_13") != null){
-                JsonArray arr = openLibJsonObject.get("isbn_13").asJsonArray();
-                isbnFirst = arr.get(0).toString();
-
-            }else if (openLibJsonObject.get("isbn_10") != null){
-                JsonArray arr = openLibJsonObject.get("isbn_10").asJsonArray();
-                isbnFirst = arr.get(0).toString();
-
-            }else {
-                isbnFirst = "";
-            }
-
-//        Get Description from Socket
-            if (openLibJsonObject.get("works") != null) {
-                String works = openLibJsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
-                JsonReader temp = getJsonObject(OPEN_LIBRARY_API + works + ".json");
-                try{
-                    String jsonVal =  temp.readObject().get("description").asJsonObject().get("value").toString();
-                    des = removeQuotes(jsonVal);
-                }catch (Exception exception){
-                    try{
-                        String jsonVal =  temp.readObject().get("description").toString();
-                        des = removeQuotes(jsonVal);
-                    }catch (Exception ex){
-                        des = "No description Found";
-                    }
-                }
-
-            }
-            //        Get Author from Socket
-            if (openLibJsonObject.get("authors") != null) {
-                author = openLibJsonObject.get("authors").asJsonArray().get(0).asJsonObject().getString("key");
-                JsonReader temp = getJsonObject(OPEN_LIBRARY_API + author + ".json");
-                try{
-                    author = removeQuotes(temp.readObject().get("name").toString());
-                }catch (Exception exception){
-                    author="No author Found";
-                }
-            }
+            title = getTitleFromJson(openLibJsonObject);
+            isbnFirst = getISBNFromJson(openLibJsonObject);
+            des = getDescriptionFromJson(openLibJsonObject);
+            author = getAuthorFromJson(openLibJsonObject);
 //       Get Cover
             cover = OPEN_LIBRARY_API.replace("https://", "https://covers.") + "b/isbn/" + query + "-M.jpg";
             return new Book(title, isbnFirst, "\"" + cover + "\"", "\"" + des + "\"", "\"" + author + "\"");
@@ -119,6 +82,52 @@ public class Book {
 
     public static String removeQuotes(String quoted){
         return quoted.replace("\"", "");
+    }
+
+    private static String getTitleFromJson(JsonObject jsonObject){
+       return jsonObject.get("title").toString();
+    }
+    private static String getISBNFromJson(JsonObject jsonObject){
+        //  Get ISBN array
+        if (jsonObject.get("isbn_13") != null){
+            JsonArray arr = jsonObject.get("isbn_13").asJsonArray();
+            return arr.get(0).toString();
+        }else if (jsonObject.get("isbn_10") != null){
+            JsonArray arr = jsonObject.get("isbn_10").asJsonArray();
+            return arr.get(0).toString();
+        }else {
+            return  "";
+        }
+    }
+    private static String getDescriptionFromJson(JsonObject jsonObject) throws MalformedURLException {
+        if (jsonObject.get("works") != null) {
+            String works = jsonObject.get("works").asJsonArray().get(0).asJsonObject().getString("key");
+            JsonReader temp = getJsonObject(OPEN_LIBRARY_API + works + ".json");
+            try{
+                String jsonVal =  temp.readObject().get("description").asJsonObject().get("value").toString();
+                return removeQuotes(jsonVal);
+            }catch (Exception exception){
+                try{
+                    String jsonVal =  temp.readObject().get("description").toString();
+                    return removeQuotes(jsonVal);
+                }catch (Exception ex){
+                    return  "No description Found";
+                }
+            }
+        }
+        return null;
+    }
+    private static String getAuthorFromJson(JsonObject jsonObject) throws MalformedURLException {
+        if (jsonObject.get("authors") != null) {
+            String authorKey = jsonObject.get("authors").asJsonArray().get(0).asJsonObject().getString("key");
+            JsonReader temp = getJsonObject(OPEN_LIBRARY_API + authorKey + ".json");
+            try{
+                return removeQuotes(temp.readObject().get("name").toString());
+            }catch (Exception exception){
+               return "No author Found";
+            }
+        }
+        return null;
     }
 
     private static JsonReader getJsonObject(String url) throws MalformedURLException {
