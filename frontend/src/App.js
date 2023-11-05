@@ -36,7 +36,7 @@ function App() {
 
     return (
         <div id="MainPageDiv">
-            <div class="px-5 pt-2 pb-2 d-flex flex-row" styles={{gap: 10 + 'px'}} id="nav">
+            <div class="px-5 pt-2 pb-2 d-flex " styles={{gap: 10 + 'px'}} id="nav">
                <Logo/>
                 <div>
              <Form onKeyDown={handleKeyDown}>
