@@ -35,7 +35,7 @@ function BookShelf() {
 
     return (
         <div id="topBar">
-            <div className="px-5 pt-2 pb-2 d-flex flex-row" styles={{gap: 10 + 'px'}} id="nav">
+            <div className="px-5 pt-2 pb-2 d-flex " styles={{gap: 10 + 'px'}} id="nav">
                 <Logo/>
                 <div>
                     <h1>Bookshelf</h1>
